@@ -10,6 +10,16 @@ pip install git+https://github.com/jo-nas/openocd_plug.git
 
 ## Usage
 
+Flash a firmware:
+```python
+import openhtf
+from openocd_plug import OpenOCDPlug
+
+@openhtf.plug(ocd=OpenOCDPlug)
+def flash_firmware_example(test, ocd):
+    ocd.programm("firmware_file.hex")
+```
+
 ## Requirements
 - [openhtf](https://github.com/google/openhtf): The open-source hardware testing framework.
 

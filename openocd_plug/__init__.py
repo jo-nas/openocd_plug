@@ -1,7 +1,6 @@
 import socket
 from openhtf import plugs
 from openhtf import conf
-import struct
 
 conf.declare(
     'openocd_ip',
@@ -22,8 +21,16 @@ class OpenOCDPlug(plugs.BasePlug):
         self.ip = openocd_ip
         self.port = openocd_port
 
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.sock.connect((self.ip, self.port))
+        try:
+            self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.sock.connect((self.ip, self.port))
+        except:
+            import subprocess
+            subprocess.call("cd ~")
+            subprocess.call("openocd")
+            self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.sock.connect((self.ip, self.port))
+
         self.receive()
         self.debug_level(0)
 
