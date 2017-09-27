@@ -65,13 +65,13 @@ class OpenOCDPlug(plugs.BasePlug):
         return self.query("reset run")
 
     def reset_halt(self):
-        return self.query("reset halt")
+        return True if "target halted" in self.query("reset halt") else False
 
     def reset_init(self):
         return self.query("reset init")
 
     def exit(self):
-        return self.query("exit")
+        self.send("exit")
 
     def debug_level(self, level):
         return self.query("debug_level {}".format(level))
@@ -86,3 +86,6 @@ class OpenOCDPlug(plugs.BasePlug):
             verify="verify" if verify else "",
             reset="reset" if reset else "",
         ))
+
+    def erase(self):
+        pass
