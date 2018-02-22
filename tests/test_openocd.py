@@ -5,6 +5,7 @@ sys.modules['socket'] = mock_socket
 
 import openocd_plug
 
+
 @pytest.fixture
 def ocd_plug():
     return openocd_plug.OpenOCDPlug()
